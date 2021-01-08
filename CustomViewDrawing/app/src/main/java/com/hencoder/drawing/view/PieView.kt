@@ -8,6 +8,16 @@ import android.view.View
 import kotlin.math.cos
 import kotlin.math.sin
 
+/**
+ * Homework Info:
+ * private val ANGLES = floatArrayOf(60f, 90f, 135f, 75f)
+ * private val COLORS = listOf(
+ *    Color.parseColor("#2879fe"),
+ *    Color.parseColor("#c2175b"),
+ *    Color.parseColor("#009788"),
+ *    Color.parseColor("#ff8e01")
+ * )
+ */
 private val RADIUS = 150f.px
 private val ANGLES = floatArrayOf(60f, 90f, 150f, 60f)
 private val COLORS = listOf(
@@ -36,7 +46,8 @@ class PieView(context: Context?, attrs: AttributeSet?) :
             if (index == 1) {
                 canvas.save()
 
-                val translateAngle = Math.toRadians(startAngle + angle / 2f.toDouble()) // 偏移量，須加上初始偏移
+                val translateAngle =
+                    Math.toRadians(startAngle + angle / 2f.toDouble()) // 偏移量，須加上初始偏移
                 canvas.translate( // 使扇形整體偏移
                     OFFSET_LENGTH * cos(translateAngle).toFloat(),
                     OFFSET_LENGTH * sin(translateAngle).toFloat()
