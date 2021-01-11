@@ -9,16 +9,18 @@ import com.hencoder.xfermode.px
 
 private val IMAGE_WIDTH = 200f.px
 private val IMAGE_PADDING = 20f.px
-private val XFERMODE = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+private val IMAGE_ROUND = 10f.px
+private val XFERMODE_DST_OVER = PorterDuffXfermode(PorterDuff.Mode.DST_OVER)
+private val XFERMODE_SRC_IN = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
 
 class AvatarView(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val bounds = RectF(
-        IMAGE_PADDING,
-        IMAGE_PADDING,
-        IMAGE_PADDING + IMAGE_WIDTH,
-        IMAGE_PADDING + IMAGE_WIDTH
+        IMAGE_PADDING - IMAGE_ROUND,
+        IMAGE_PADDING - IMAGE_ROUND,
+        IMAGE_PADDING + IMAGE_WIDTH + IMAGE_ROUND,
+        IMAGE_PADDING + IMAGE_WIDTH + IMAGE_ROUND
     )
 
     override fun onDraw(canvas: Canvas) {
@@ -28,7 +30,7 @@ class AvatarView(context: Context?, attrs: AttributeSet?) :
             null
         )
 
-        // 畫圓，橢圓是利用矩形為基準而繪製，在具有邊常的情況下，用以繪製圓形更為適合。
+        // 繪製圓形頭像
         canvas.drawOval(
             IMAGE_PADDING,
             IMAGE_PADDING,
@@ -43,13 +45,25 @@ class AvatarView(context: Context?, attrs: AttributeSet?) :
          * 參數設定請參考：
          * https://developer.android.com/reference/android/graphics/PorterDuff.Mode#alpha-compositing-modes
          */
-        paint.xfermode = XFERMODE
+        paint.xfermode = XFERMODE_SRC_IN
 
         // 獲取頭像
         canvas.drawBitmap(
             getAvatar(IMAGE_WIDTH.toInt()),
             IMAGE_PADDING,
             IMAGE_PADDING,
+            paint
+        )
+
+        // 繪製圓形邊框
+        paint.xfermode = XFERMODE_DST_OVER
+
+        // 繪製大圓
+        canvas.drawOval(
+            IMAGE_PADDING - IMAGE_ROUND,
+            IMAGE_PADDING - IMAGE_ROUND,
+            IMAGE_PADDING + IMAGE_WIDTH + IMAGE_ROUND,
+            IMAGE_PADDING + IMAGE_WIDTH + IMAGE_ROUND,
             paint
         )
 
