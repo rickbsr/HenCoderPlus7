@@ -14,7 +14,7 @@ import com.hencoder.text.R
 import com.hencoder.text.dp
 
 private val IMAGE_SIZE = 150.dp
-private val IMAGE_PADDING = 50.dp
+private val IMAGE_PADDING = 90.dp
 
 class MultilineTextView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 

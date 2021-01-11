@@ -78,36 +78,37 @@ class SportView(context: Context, attrs: AttributeSet?) :
 //        )
 
         // 上下置中：以文字區間邊界並扣除偏移量（相對置中），與文字無關，因此不會因為文字不同而有差異，適合動態文字。
-//        paint.style = Paint.Style.FILL // 填充模式
-//        // 藉由 fontMetrics 來獲取文字區間。
-//        paint.getFontMetrics(fontMetrics)
-//        canvas.drawText(
-//            "aaaa",
-//            width / 2f,
-//            height / 2f - (fontMetrics.ascent + fontMetrics.descent) / 2f,
-//            paint
-//        )
+        paint.style = Paint.Style.FILL // 填充模式
+        // 藉由 fontMetrics 來獲取文字區間。
+        paint.getFontMetrics(fontMetrics)
+        canvas.drawText(
+            "abab",
+            width / 2f,
+            height / 2f - (fontMetrics.ascent + fontMetrics.descent) / 2f,
+            paint
+        )
 
         // 向上對齊、貼左
-        paint.textSize = 150.dp
-        paint.style = Paint.Style.FILL
-        paint.textAlign = Paint.Align.LEFT
-        paint.getFontMetrics(fontMetrics)
+//        paint.textSize = 150.dp
+//        paint.style = Paint.Style.FILL
+//        paint.textAlign = Paint.Align.LEFT
+//        paint.getFontMetrics(fontMetrics)
 //        paint.getTextBounds( // 獲取文字邊界
 //            "abab",
 //            0,
 //            "abab".length,
 //            bounds // 傳入 Rect() 用於存放結果
 //        )
+
         // 建議用 top，用 ascent 在某些文字時可能被切邊。
-        canvas.drawText("abab", 0f, -fontMetrics.top, paint)
+//        canvas.drawText("abab", 0f, -fontMetrics.top, paint)
 //        canvas.drawText("abab", 0f, -bounds.top.toFloat(), paint)
 
 
         // 處理文字與邊界的間隙。
-        paint.textSize = 15.dp
-        paint.getTextBounds("abab", 0, "abab".length, bounds)
-        // 若到底還有一點點縫隙，其實那是屬於文字的自然邊界，也就是說該縫隙在系統的判定中屬於文字，因此，我們無法解決。
-        canvas.drawText("abab", -bounds.left.toFloat(), -bounds.top.toFloat(), paint)
+//        paint.textSize = 15.dp
+//        paint.getTextBounds("abab", 0, "abab".length, bounds)
+//        // 若到底還有一點點縫隙，其實那是屬於文字的自然邊界，也就是說該縫隙在系統的判定中屬於文字，因此，我們無法解決。
+//        canvas.drawText("abab", -bounds.left.toFloat(), -bounds.top.toFloat(), paint)
     }
 }
