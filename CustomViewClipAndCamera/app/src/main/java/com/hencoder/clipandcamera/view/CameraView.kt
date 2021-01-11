@@ -134,14 +134,14 @@ class CameraView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
         // 上半部分
         canvas.save()
         canvas.translate(BITMAP_PADDING + BITMAP_SIZE / 2, BITMAP_PADDING + BITMAP_SIZE / 2)
-        canvas.rotate(-30f) // 切後，回覆旋轉
+        canvas.rotate(-20f) // 切後，回覆旋轉
         canvas.clipRect( // 因為旋轉後，切的範圍會變小，所以要擴大，理論上是 1.414..，即根號二，此處，方便操作，以 2 被為例。
             -BITMAP_SIZE,
             -BITMAP_SIZE,
             BITMAP_SIZE,
             0f
         )
-        canvas.rotate(30f) // 在移動後，切之前，旋轉
+        canvas.rotate(20f) // 在移動後，切之前，旋轉
         canvas.translate(-(BITMAP_PADDING + BITMAP_SIZE / 2), -(BITMAP_PADDING + BITMAP_SIZE / 2))
         canvas.drawBitmap(bitmap, BITMAP_PADDING, BITMAP_PADDING, paint)
         canvas.restore()
@@ -149,7 +149,7 @@ class CameraView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
         // 下半部分
         canvas.save()
         canvas.translate(BITMAP_PADDING + BITMAP_SIZE / 2, BITMAP_PADDING + BITMAP_SIZE / 2)
-        canvas.rotate(-30f) // 切後，回覆旋轉
+        canvas.rotate(-20f) // 切後，回覆旋轉
         camera.applyToCanvas(canvas)
         canvas.clipRect( // 切割要在旋轉之前
             -BITMAP_SIZE,
@@ -157,7 +157,7 @@ class CameraView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
             BITMAP_SIZE,
             BITMAP_SIZE
         )
-        canvas.rotate(30f) // 在移動後，切之前，旋轉
+        canvas.rotate(20f) // 在移動後，切之前，旋轉
         canvas.translate(-(BITMAP_PADDING + BITMAP_SIZE / 2), -(BITMAP_PADDING + BITMAP_SIZE / 2))
         canvas.drawBitmap(bitmap, BITMAP_PADDING, BITMAP_PADDING, paint)
         canvas.restore()
