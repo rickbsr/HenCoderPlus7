@@ -5,6 +5,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- ViewPropertyAnimator
+    <ImageView
+        android:id="@+id/view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/avatar_rengwuxian" />
+    -->
+
+
     <com.hencoder.animation.view.ProvinceView
         android:id="@+id/view"
         android:layout_width="match_parent"

@@ -11,66 +11,87 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import com.hencoder.animation.dp
 
-private val provinces = listOf("北京市",
-  "天津市",
-  "上海市",
-  "重庆市",
-  "河北省",
-  "山西省",
-  "辽宁省",
-  "吉林省",
-  "黑龙江省",
-  "江苏省",
-  "浙江省",
-  "安徽省",
-  "福建省",
-  "江西省",
-  "山东省",
-  "河南省",
-  "湖北省",
-  "湖南省",
-  "广东省",
-  "海南省",
-  "四川省",
-  "贵州省",
-  "云南省",
-  "陕西省",
-  "甘肃省",
-  "青海省",
-  "台湾省",
-  "内蒙古自治区",
-  "广西壮族自治区",
-  "西藏自治区",
-  "宁夏回族自治区",
-  "新疆维吾尔自治区",
-  "香港特别行政区",
-  "澳门特别行政区")
+private val provinces = listOf(
+    "北京市",
+    "天津市",
+    "上海市",
+    "重庆市",
+    "河北省",
+    "山西省",
+    "辽宁省",
+    "吉林省",
+    "黑龙江省",
+    "江苏省",
+    "浙江省",
+    "安徽省",
+    "福建省",
+    "江西省",
+    "山东省",
+    "河南省",
+    "湖北省",
+    "湖南省",
+    "广东省",
+    "海南省",
+    "四川省",
+    "贵州省",
+    "云南省",
+    "陕西省",
+    "甘肃省",
+    "青海省",
+    "台湾省",
+    "内蒙古自治区",
+    "广西壮族自治区",
+    "西藏自治区",
+    "宁夏回族自治区",
+    "新疆维吾尔自治区",
+    "香港特别行政区",
+    "澳门特别行政区"
+)
 
 class ProvinceView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
-  private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-    textSize = 80.dp
-    textAlign = Paint.Align.CENTER
-  }
-  var province = "北京市"
-    set(value) {
-      field = value
-      invalidate()
-      val drawable = ColorDrawable()
-      drawable.toBitmap().toDrawable(resources)
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        textSize = 80.dp
+        textAlign = Paint.Align.CENTER
     }
 
-  override fun onDraw(canvas: Canvas) {
-    super.onDraw(canvas)
+    /*
+     * 將要作動畫屬性抽出
+     */
+    var province = "北京市"
+        set(value) {
+            field = value
+            invalidate()
+//            val drawable = ColorDrawable()
+//            drawable.toBitmap().toDrawable(resources)
+        }
 
-    canvas.drawText(province, width / 2f, height / 2f, paint)
-  }
+    init {
+        /*
+         * 離屏緩衝，setLayerType() 要寫在 onDraw 的外部，因為它會觸發重繪。
+         *
+         * - LAYER_TYPE_HARDWARE：開啟離屏緩衝，並用硬件繪製實現。
+         * - LAYER_TYPE_SOFTWARE：開啟離屏緩衝，並用軟件繪製實現。
+         * - LAYER_TYPE_NONE：關閉離屏緩衝。
+         */
+//        setLayerType(
+//            LAYER_TYPE_HARDWARE, // LAYER_TYPE_SOFTWARE、LAYER_TYPE_NONE、
+//            null
+//        )
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+
+        canvas.drawText(province, width / 2f, height / 2f, paint)
+    }
 }
 
 class ProvinceEvaluator : TypeEvaluator<String> {
-  override fun evaluate(fraction: Float, startValue: String, endValue: String): String {
-    val startIndex = provinces.indexOf(startValue)
-    val endIndex = provinces.indexOf(endValue)
-    val currentIndex = startIndex + ((endIndex - startIndex) * fraction).toInt()
-    return provinces[currentIndex]
-  }
+    override fun evaluate(fraction: Float, startValue: String, endValue: String): String {
+        // 用陣列的位置來處理
+        val startIndex = provinces.indexOf(startValue)
+        val endIndex = provinces.indexOf(endValue)
+        val currentIndex = startIndex + ((endIndex - startIndex) * fraction).toInt()
+        return provinces[currentIndex]
+    }
 }

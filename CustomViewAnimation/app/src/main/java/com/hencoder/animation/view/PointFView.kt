@@ -9,19 +9,19 @@ import android.view.View
 import com.hencoder.animation.dp
 
 class PointFView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
-  private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-  var point = PointF(0f, 0f)
-    set(value) {
-      field = value
-      invalidate()
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    var point = PointF(0f, 0f)
+        set(value) { // 需要修改 setter，並加入 invalidate()
+            field = value
+            invalidate()
+        }
+
+    init {
+        paint.strokeWidth = 20.dp
+        paint.strokeCap = Paint.Cap.ROUND
     }
 
-  init {
-    paint.strokeWidth = 20.dp
-    paint.strokeCap = Paint.Cap.ROUND
-  }
-
-  override fun onDraw(canvas: Canvas) {
-    canvas.drawPoint(point.x, point.y, paint)
-  }
+    override fun onDraw(canvas: Canvas) {
+        canvas.drawPoint(point.x, point.y, paint)
+    }
 }

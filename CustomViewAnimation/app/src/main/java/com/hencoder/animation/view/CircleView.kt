@@ -9,20 +9,29 @@ import android.view.View
 import com.hencoder.animation.dp
 
 class CircleView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
-  private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-  var radius = 50.dp
-    set(value) {
-      field = value
-      invalidate()
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    var radius = 50.dp
+        set(value) {
+            field = value
+            invalidate() // 要覆寫 setter 並加入 invalidate() 來重繪。
+        }
+
+    init {
+        paint.color = Color.parseColor("#00796B")
     }
 
-  init {
-    paint.color = Color.parseColor("#00796B")
-  }
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
 
-  override fun onDraw(canvas: Canvas) {
-    super.onDraw(canvas)
+        canvas.drawCircle(width / 2f, height / 2f, radius, paint)
+    }
 
-    canvas.drawCircle(width / 2f, height / 2f, radius, paint)
-  }
+    /*
+     * 在 Java ，要寫 Setter，如下：
+     *
+     * public void setRadius(float value) {
+     *      this.radius = value;
+     *      invalidate();
+     * }
+     */
 }
