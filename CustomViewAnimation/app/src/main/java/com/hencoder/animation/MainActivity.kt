@@ -127,12 +127,12 @@ class MainActivity : AppCompatActivity() {
         /*
          * 自定義 TypeEvaluator：字串動畫
          */
-//        val animator =
-//            ObjectAnimator.ofObject(view, "province", ProvinceEvaluator(), "澳门特别行政区")
-//        animator.startDelay = 1000
-//        animator.duration = 10000
-//
-//        animator.start()
+        val animator =
+            ObjectAnimator.ofObject(view, "province", ProvinceEvaluator(), "澳门特别行政区")
+        animator.startDelay = 1000
+        animator.duration = 10000
+
+        animator.start()
 
         /*
          * 離屏緩衝：
@@ -140,9 +140,9 @@ class MainActivity : AppCompatActivity() {
          * 優點：對於 Android 動畫自帶屬性，離屏緩衝能在不重繪製的情況下，使得 UI 改變，因此效能更好。
          * 缺點：其效果不包含自定義屬性，此外，開啟離屏緩衝本身就是一種額外消耗。
          */
-        view.animate()
-            .translationY(200.dp)
-            .withLayer() // 在動畫過程中開啟硬件等級的離屏緩衝
+//        view.animate()
+//            .translationY(200.dp)
+//            .withLayer() // 在動畫過程中開啟硬件等級的離屏緩衝
     }
 
     class PointFEvaluator : TypeEvaluator<PointF> {
