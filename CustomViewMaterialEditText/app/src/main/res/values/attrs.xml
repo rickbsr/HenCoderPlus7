@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- 在 attrs 建立可以調用的屬性 -->
     <declare-styleable name="MaterialEditText">
         <attr name="useFloatingLabel" format="boolean" />
     </declare-styleable>
