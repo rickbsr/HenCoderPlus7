@@ -3,6 +3,7 @@ package com.hencoder.materialedittext
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
@@ -53,13 +54,14 @@ class MaterialEditText(context: Context, attrs: AttributeSet) : AppCompatEditTex
 
     init {
         paint.textSize = TEXT_SIZE
+        paint.color = Color.parseColor("#EA4076")
 
         // attrs
-        for (index in 0 until attrs.attributeCount) {
-            println(
-                "Attrs Key: ${attrs.getAttributeName(index)}, Value: ${attrs.getAttributeValue(index)}"
-            )
-        }
+//        for (index in 0 until attrs.attributeCount) {
+//            println(
+//                "Attrs Key: ${attrs.getAttributeName(index)}, Value: ${attrs.getAttributeValue(index)}"
+//            )
+//        }
 
         // 與 attrs.xml 中的屬性連動
         val typeArray = context.obtainStyledAttributes(

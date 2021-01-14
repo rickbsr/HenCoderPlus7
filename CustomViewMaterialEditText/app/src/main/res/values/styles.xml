@@ -5,6 +5,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- 更改 EditText 的底線和指標 -->
+        <item name="colorControlNormal">#EA4076</item>
+        <item name="colorControlActivated">#EA4076</item>
     </style>
 
 </resources>
