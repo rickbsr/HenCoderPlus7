@@ -49,12 +49,21 @@ class LessonPresenter {
         /*
          * 在 Kotlin 中，List 和 Map 是不支持修改內容的。
          */
-        val playbackLessons: MutableList<Lesson> = ArrayList()
-        for (lesson in lessons) {
-            if (lesson.getState() === Lesson.State.PLAYBACK) {
-                playbackLessons.add(lesson)
-            }
-        }
-        activity!!.showResult(playbackLessons)
+//        val playbackLessons: MutableList<Lesson> = ArrayList()
+//        for (lesson in lessons) {
+//            if (lesson.state === Lesson.State.PLAYBACK) {
+//                playbackLessons.add(lesson)
+//            }
+//        }
+
+//        lessons.forEach {
+//            if (it.state === Lesson.State.PLAYBACK) playbackLessons.add(it)
+//        }
+
+//        val filter = lessons.filter { it.state === Lesson.State.PLAYBACK }
+
+        activity!!.showResult(lessons.filter {
+            it.state === Lesson.State.PLAYBACK
+        })
     }
 }

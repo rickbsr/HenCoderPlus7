@@ -1,9 +1,25 @@
 package com.example.app.entity;
 
+import com.example.app.sample.View;
+import com.example.core.BaseApplication;
+import com.example.core.utils.Utils;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+
 public class A {
-    User user = new User();
 
-    String username = user.getUsername();
+    public static void main(String[] args) {
+        BaseApplication.currentApplication();
 
-    String code = user.code;
+        Utils.INSTANCE.toast("a");
+
+        // 在 Java 調用函數類型
+        new View().setOnClickListener(new Function1<View, Unit>() {
+            @Override
+            public Unit invoke(View view) {
+                return null;
+            }
+        });
+    }
 }

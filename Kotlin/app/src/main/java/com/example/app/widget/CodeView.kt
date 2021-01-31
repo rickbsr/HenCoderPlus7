@@ -13,25 +13,27 @@ import com.example.core.utils.Utils
 import com.example.core.utils.dp2px
 import java.util.*
 
-class CodeView : AppCompatTextView {
+class CodeView @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
+        AppCompatTextView(context, attr) {
 
-    constructor(context: Context) : this(context, null)
+//    constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attr: AttributeSet?) : super(context, attr) {
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-        gravity = Gravity.CENTER
-        setBackgroundColor(getContext().getColor(R.color.colorPrimary))
-        setTextColor(Color.WHITE)
-
-        paint.isAntiAlias = true
-        paint.style = Paint.Style.STROKE
-        paint.color = getContext().getColor(R.color.colorAccent)
-        paint.strokeWidth = dp2px(6f)
-
-        updateCode()
+    // apply 可以放置初始化代碼
+    private val paint = Paint().apply {
+        isAntiAlias = true
+        style = Paint.Style.STROKE
+        color = getContext().getColor(R.color.colorAccent)
+        strokeWidth = 6f.dp2px()
     }
 
-    private val paint = Paint()
+    // let 也有同樣效果，但語法上並不合適
+//    private val paint = Paint().let {
+//        it.isAntiAlias = true
+//        it.style = Paint.Style.STROKE
+//        it.color = getContext().getColor(R.color.colorAccent)
+//        it.strokeWidth = 6f.dp2px()
+//        return@let
+//    }
 
     // 若為基本數據類型，則不建議用一般數組存放，因為數組存放的是包裝後類型，若為基本數據類型則需要封裝、拆裝。
     private val codeList = arrayOf(
@@ -44,6 +46,20 @@ class CodeView : AppCompatTextView {
             "retrofit",
             "tcp/ip"
     )
+
+    init {
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+        gravity = Gravity.CENTER
+        setBackgroundColor(getContext().getColor(R.color.colorPrimary))
+        setTextColor(Color.WHITE)
+
+//        paint.isAntiAlias = true
+//        paint.style = Paint.Style.STROKE
+//        paint.color = getContext().getColor(R.color.colorAccent)
+//        paint.strokeWidth = 6f.dp2px()
+
+        updateCode()
+    }
 
     fun updateCode() {
         val random = Random().nextInt(codeList.size)

@@ -1,8 +1,12 @@
 package com.example.app
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +15,21 @@ import com.example.app.widget.CodeView
 import com.example.core.utils.CacheUtils
 import com.example.core.utils.Utils
 import com.example.lesson.LessonActivity
+
+// 若擴展與原本函數衝突，則失效
+fun Activity.setContentView(id: Int) {}
+
+// 擴展是靜態解析，也就是說，在編譯時期就已經被決定
+fun Activity.log(text: String) {
+    Log.d("Activity", "log: $text")
+}
+
+fun Context.log(text: String) {
+    Log.d("Context", "log: $text")
+}
+
+val ViewGroup.firstChild: View
+    get() = getChildAt(0)
 
 /*
  * 類別的繼承和實作：
@@ -32,6 +51,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        (window.decorView as ViewGroup).firstChild
 
         findViews()
 
@@ -65,14 +86,33 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val password = et_password.text.toString()
         val code = et_code.text.toString()
 
+        val user = User(username, password, code)
+
+        // 與 Java 不同，Kotlin 允與方法內部方法，但是它每次被調用的時候都會生成一個對象，很影響效能
+        fun verify(): Boolean {
+            user.username?.length ?: 0 < 4
+//        if (user.username == null || user.username!!.length < 4) {
+            if (user.username?.length ?: 0 < 4) {
+                Utils.toast("用户名不合法")
+                return false
+            }
+
+//        if (user.password == null || user.password!!.length < 4) {
+            if (user.password?.length ?: 0 < 4) {
+                Utils.toast("密码不合法")
+                return false
+            }
+
+            return true
+        }
+
         /*
          * EditText.setText("String") 無法簡化成 text = "String" 是因為 setter 參數為 Editable。
          */
 //        et_username.setText("String")
 //        et_username.text = Editable.Factory.getInstance().newEditable("Editable")
 
-        val user = User(username, password, code)
-        if (verify(user)) {
+        if (verify()) {
             CacheUtils.save(usernameKey, username)
             CacheUtils.save(passwordKey, password)
         }
@@ -81,19 +121,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         startActivity(Intent(this, LessonActivity::class.java))
     }
 
-    private fun verify(user: User): Boolean {
-        if (user.username == null || user.username!!.length < 4) {
-            Utils.toast("用户名不合法")
-            return false
-        }
-
-        if (user.password == null || user.password!!.length < 4) {
-            Utils.toast("密码不合法")
-            return false
-        }
-
-        return true
-    }
+//    private fun verify(user: User): Boolean {
+//        user.username?.length ?: 0 < 4
+////        if (user.username == null || user.username!!.length < 4) {
+//        if (user.username?.length ?: 0 < 4) {
+//            Utils.toast("用户名不合法")
+//            return false
+//        }
+//
+////        if (user.password == null || user.password!!.length < 4) {
+//        if (user.password?.length ?: 0 < 4) {
+//            Utils.toast("密码不合法")
+//            return false
+//        }
+//
+//        return true
+//    }
 
     private fun findViews() {
         et_username = findViewById(R.id.et_username)
